@@ -13,14 +13,14 @@ echo -e "\e[36m
        ▀                        ▀████▀▀                                 ▀████▀▀
 \e[0m\n"
 
-DOCKER_IMG_NAME="shufflewzc/qinglong"
+DOCKER_IMG_NAME="whyour/qinglong"
 JD_PATH=""
 SHELL_FOLDER=$(pwd)
 CONTAINER_NAME=""
 TAG="latest"
 NETWORK="bridge"
-JD_PORT=5700
-NINJA_PORT=5701
+JD_PORT=8700
+NINJA_PORT=8701
 
 HAS_IMAGE=false
 PULL_IMAGE=true
@@ -80,7 +80,7 @@ docker_install() {
 }
 
 docker_install
-warn "Faker系列仓库一键安装配置，一键安装的青龙版本为2.9.3稳定版，小白回车到底，一路默认选择"
+warn "一键安装配置，一键安装青龙最新版，小白回车到底，一路默认选择"
 # 配置文件保存目录
 echo -n -e "\e[33m一、请输入配置文件保存的绝对路径（示例：/root)，回车默认为当前目录:\e[0m"
 read jd_path
@@ -175,14 +175,14 @@ fi
 inp "是否安装 Ninja：\n1) 安装[默认]\n2) 不安装"
 opt
 read Ninja
-if [ "$Ninja" = "2" ]; then
+if [ "$Ninja" = "1" ]; then
     INSTALL_NINJA=false
     MAPPING_NINJA_PORT=""
 fi
 
 # 端口问题
 modify_ql_port() {
-    inp "是否修改青龙端口[默认 5700]：\n1) 修改\n2) 不修改[默认]"
+    inp "是否修改青龙端口[默认 8700]：\n1) 修改\n2) 不修改[默认]"
     opt
     read change_ql_port
     if [ "$change_ql_port" = "1" ]; then
@@ -191,7 +191,7 @@ modify_ql_port() {
     fi
 }
 modify_Ninja_port() {
-    inp "是否修改 Ninja 端口[默认 5701]：\n1) 修改\n2) 不修改[默认]"
+    inp "是否修改 Ninja 端口[默认 8701]：\n1) 修改\n2) 不修改[默认]"
     opt
     read change_Ninja_port
     if [ "$change_Ninja_port" = "1" ]; then
@@ -251,7 +251,7 @@ if [ "$port" != "2" ]; then
         read JD_PORT
     done
     echo -e "\e[34m恭喜，端口:$JD_PORT 可用\e[0m"
-    MAPPING_JD_PORT="-p $JD_PORT:5700"
+    MAPPING_JD_PORT="-p $JD_PORT:8700"
 fi
 if [ "$Ninja" != "2" ]; then
     while check_port $NINJA_PORT; do    
@@ -259,7 +259,7 @@ if [ "$Ninja" != "2" ]; then
         read NINJA_PORT
     done
     echo -e "\e[34m恭喜，端口:$NINJA_PORT 可用\e[0m"
-    MAPPING_NINJA_PORT="-p $NINJA_PORT:5701"
+    MAPPING_NINJA_PORT="-p $NINJA_PORT:8701"
 fi
 
 
@@ -332,8 +332,8 @@ else
 fi
 
 # 防止 CPU 占用过高导致死机
-echo -e "-------- 机器累了，休息 20s，趁机去操作一下吧 --------"
-sleep 20
+echo -e "-------- 机器累了，休息 10s，趁机去操作一下吧 --------"
+sleep 10
 
 # 显示 auth.json
 inp "是否显示被修改的密码：\n1) 显示[默认]\n2) 不显示"
@@ -369,4 +369,4 @@ else
     exit 0
 fi
 
-log "/n部署完成了，另外Faker教程内有一键安装依赖脚本，按需使用"
+log "/n部署完成了，按需使用"
