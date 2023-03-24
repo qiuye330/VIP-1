@@ -46,7 +46,7 @@ check_url() {
 
 # 获取有效 config.sh 链接
 get_valid_config() {
-    config_list=(https://github.com/yanyuwangluo/VIP/blob/main/Conf/Qinglong/config.sample.sh)
+    config_list=(https://github.com/qiuye330/VIP-1/tree/main/Conf/Qinglong/config.sample.sh)
     for url in ${config_list[@]}; do
         check_url $url
         if [ $? = 0 ]; then
